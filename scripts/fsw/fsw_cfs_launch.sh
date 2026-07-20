@@ -174,7 +174,7 @@ do
     gnome-terminal --tab --title=$SC_NUM" - RW 1 Sim"     -- $DFLAGS -v $SIM_DIR:$SIM_DIR --name $SC_NUM"-rw-sim1"      -v /dev/shm:/dev/shm --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE generic-reactionwheel-sim1
     gnome-terminal --tab --title=$SC_NUM" - RW 2 Sim"     -- $DFLAGS -v $SIM_DIR:$SIM_DIR --name $SC_NUM"-rw-sim2"      -v /dev/shm:/dev/shm --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE generic-reactionwheel-sim2
     gnome-terminal --tab --title=$SC_NUM" - Radio Sim" -- \
-        $DFLAGS -v $SIM_DIR:$SIM_DIR \
+        $DFLAGS -e "TCP_GROUND=0" -e "MULTI_GDS=0" -v $SIM_DIR:$SIM_DIR \
         --name $SC_NUM"-radio-sim" \
         --network $SC_NETNAME \
         --network-alias radio-sim \
@@ -193,7 +193,7 @@ do
     
     echo ""
     echo $SC_NUM " - CryptoLib..."
-    gnome-terminal --tab --title=$SC_NUM" - CryptoLib GSW" -- $DFLAGS -e "STANDALONE_TCP=1" -e "GSWALIAS=cosmos" -e "CRYPTO_HOST=cryptolib" -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-cryptolib-gsw"  -h cryptolib --network=$SC_NETNAME --network-alias=cryptolib -w $BASE_DIR/gsw/build $DBOX ./support/standalone
+    gnome-terminal --tab --title=$SC_NUM" - CryptoLib GSW" -- $DFLAGS -e "STANDALONE_TCP=0" -e "GSWALIAS=cosmos" -e "CRYPTO_HOST=0.0.0.0" -v $BASE_DIR:$BASE_DIR --name "$SC_NUM-cryptolib-gsw"  -h $SC_NUM-cryptolib --network=$SC_NETNAME --network-alias=$SC_NUM-cryptolib -w $BASE_DIR/gsw/build $DBOX ./support/standalone
     echo ""
 
 done
