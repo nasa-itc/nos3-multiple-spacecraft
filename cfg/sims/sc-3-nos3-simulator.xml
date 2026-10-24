@@ -584,7 +584,7 @@
                     </connection>
                     <connection>
                         <name>radio</name>
-                        <ip>radio-sim</ip>
+                        <ip>0.0.0.0</ip>
                         <cmd-port>5014</cmd-port>
                     </connection>
                     <connection>
@@ -600,7 +600,7 @@
                         <cmd-port>8010</cmd-port>
                         <tlm-port>6011</tlm-port> -->
                         <!-- CryptoLib TC & TM -->
-                        <ip>cryptolib</ip>
+                        <ip>sc03-cryptolib-gsw</ip>
                         <cmd-port>8010</cmd-port>
                         <tlm-port>8011</tlm-port>
                     </connection>

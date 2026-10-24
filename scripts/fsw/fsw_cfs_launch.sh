@@ -197,10 +197,6 @@ do
 
     echo ""
 
-    echo $SC_NUM " - CryptoLib..."
-    gnome-terminal --tab --title=$SC_NUM" - CryptoLib GSW" -- $DFLAGS -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-cryptolib-gsw"  -h cryptolib --network $SC_NETNAME --network-alias=cryptolib -w $BASE_DIR/gsw/build $DBOX ./support/standalone
-    echo ""
-
 done
 
 sleep 10
@@ -226,5 +222,17 @@ sleep 1
 
 
 echo ""
+
+# Start CryptoLib once radio is listening on TCP 8010 (0x1F4A)
+for (( i=1; i<=$SATNUM; i++ ))
+do
+    export SC_NUM="sc0"$i
+    export SC_NETNAME="nos3-"$SC_NUM
+    for attempt in {1..180}; do
+        docker exec $SC_NUM"-radio-sim" grep -q ':1F4A 00000000:0000 0A' /proc/net/tcp 2>/dev/null && break
+        sleep 1
+    done
+    gnome-terminal --tab --title=$SC_NUM" - CryptoLib GSW" -- $DFLAGS -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-cryptolib-gsw"  -h cryptolib --network $SC_NETNAME --network-alias=cryptolib -w $BASE_DIR/gsw/build $DBOX ./support/standalone
+done
 
 echo "Docker launch script completed!"
