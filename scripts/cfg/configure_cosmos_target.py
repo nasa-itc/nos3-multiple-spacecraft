@@ -52,6 +52,8 @@ def clean_target_lines(input_file, output_file, sc_root):
                 "TARGET SYNOPSIS_RADIO"
             })
 
+    lines_to_remove |= {f'{l}_{n}' for l in lines_to_remove if l.endswith('_RADIO') for n in (1, 2, 3)}
+
     # Filter out unwanted lines
     filtered_lines = [line for line in lines if line.strip() not in lines_to_remove]
 
