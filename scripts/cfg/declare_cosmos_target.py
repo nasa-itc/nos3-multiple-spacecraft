@@ -43,6 +43,8 @@ def clean_declare_targets(input_file, output_file, sc_root, component_key, xml_n
         f'DECLARE_TARGET ../../COMPONENTS/{component_upper} SYNOPSIS_RADIO'
     }
 
+    patterns_to_remove |= {f'{p}_{n}' for p in patterns_to_remove if p.endswith('_RADIO') for n in (1, 2, 3)}
+
     with open(input_file, 'r') as f:
         lines = f.readlines()
 
